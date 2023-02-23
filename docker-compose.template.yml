@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  hyperpipe-frontend:
+    image: hyperpipe-frontend
+    container_name: hyperpipe-frontend
+    build: ./Hyperpipe
+    restart: unless-stopped
+    ports:
+      - '8080:80'
+  hyperpipe-backend:
+    image: hyperpipe-backend
+    container_name: hyperpipe-backend
+    build:
+      context: ./hyperpipe-backend
+      args:
+        proxy: hyperpipe-proxy.onrender.com
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
